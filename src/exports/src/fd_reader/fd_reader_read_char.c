@@ -12,11 +12,11 @@
 
 #include "../../includes/fd_reader.h"
 
-char			fd_reader_read_char(t_fd_reader *const self)
+char	fd_reader_read_char(t_fd_reader *const self)
 {
 	if (self->buffer_i >= self->buffer_actual_size)
 		self->vt->read_buffer(self);
 	if (self->buffer_i >= self->buffer_actual_size)
 		return (0);
-	return self->buffer[self->buffer_i++];
+	return (self->buffer[self->buffer_i++]);
 }

@@ -12,10 +12,10 @@
 
 #include "../../includes/fd_reader.h"
 
-static char 	*resize_new_line(char **const new_line_ptr, size_t *const
-new_line_size_ptr)
+static char		*resize_new_line(char **const new_line_ptr,
+	size_t *const new_line_size_ptr)
 {
-	char 	*temp_new_line;
+	char	*temp_new_line;
 
 	temp_new_line = (char *)malloc(sizeof(char) * (*new_line_size_ptr * 2));
 	if (temp_new_line == NULL)
@@ -27,25 +27,25 @@ new_line_size_ptr)
 	*new_line_size_ptr *= 2;
 	free(*new_line_ptr);
 	*new_line_ptr = temp_new_line;
-	return temp_new_line;
+	return (temp_new_line);
 }
 
-static char		*reshape_new_line(char **const new_line_ptr, const size_t
-new_line_size)
+static char		*reshape_new_line(char **const new_line_ptr,
+	const size_t new_line_size)
 {
-	char 	*temp_new_line;
+	char	*temp_new_line;
 
 	temp_new_line = (char *)malloc(sizeof(char) * (new_line_size + 1));
 	temp_new_line[new_line_size] = 0;
 	ft_strncpy(temp_new_line, *new_line_ptr, new_line_size);
 	free(*new_line_ptr);
 	*new_line_ptr = temp_new_line;
-	return temp_new_line;
+	return (temp_new_line);
 }
 
 char			*fd_reader_read_line(t_fd_reader *const self)
 {
-	char 	*new_line;
+	char	*new_line;
 	size_t	new_line_i;
 	size_t	new_line_size;
 

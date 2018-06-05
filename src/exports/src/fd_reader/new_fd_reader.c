@@ -12,8 +12,8 @@
 
 #include "../../includes/fd_reader.h"
 
-t_fd_reader						*new_fd_reader(const int fd,
-		const size_t buffer_size) {
+t_fd_reader	*new_fd_reader(const int fd, const size_t buffer_size)
+{
 	t_fd_reader	*this_ptr;
 
 	this_ptr = (t_fd_reader *)malloc(sizeof(t_fd_reader));
