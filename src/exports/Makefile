@@ -24,7 +24,8 @@ OBJ_DIR = obj
 SRC_N =	fd_reader/new_fd_reader.c \
 		fd_reader/fd_reader_init.c \
 		fd_reader/del_fd_reader.c \
-		fd_reader/fd_reader_dinit.c
+		fd_reader/fd_reader_dinit.c \
+		fd_reader/fd_reader_is_opened.c
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_N:.c=.o))
 

@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unittest_main.cpp                                  :+:      :+:    :+:   */
+/*   fd_reader_is_opened.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okurache <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/05 17:14:26 by okurache          #+#    #+#             */
-/*   Updated: 2018/06/05 17:14:26 by okurache         ###   ########.fr       */
+/*   Created: 2018/06/05 17:42:26 by okurache          #+#    #+#             */
+/*   Updated: 2018/06/05 17:42:26 by okurache         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "exports/libftin.h"
+#include "../../includes/fd_reader.h"
 
-int main() {
-	t_fd_reader reader1;
-
-	const int fd = 0;
-
-	fd_reader_init(&reader1, fd, 100);
-	printf("fd=%d: is opened=%d\n", fd, reader1.vt->is_opened(&reader1));
-
-	reader1.vt->dinit(&reader1);
+unsigned char	fd_reader_is_opened(t_fd_reader *const self)
+{
+	if (read(self->fd, NULL, 0) == -1)
+		return (0);
+	return (1);
 }

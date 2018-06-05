@@ -14,6 +14,7 @@
 # define LIBFTIN_FD_READER_H
 
 # include <stdlib.h>
+# include <unistd.h>
 
 typedef struct s_fd_reader		t_fd_reader;
 
@@ -32,7 +33,7 @@ struct							s_fd_reader {
 struct							s_fd_reader_vtbl {
 	void						(*const dinit)(t_fd_reader *const self);
 	void						(*const del)(t_fd_reader **const self_ptr);
-//	unsigned char				(*const is_opened)(t_fd_reader *const self);
+	unsigned char				(*const is_opened)(t_fd_reader *const self);
 //	unsigned char				(*const is_readable)(t_fd_reader *const self);
 //	char						*(*const read_line)(t_fd_reader *const self);
 //	char						(*const read_char)(t_fd_reader *const self);
@@ -61,8 +62,8 @@ void							fd_reader_init(t_fd_reader *const self,
 
 void							fd_reader_dinit(t_fd_reader *const self);
 
-//unsigned char					fd_reader_is_opened(t_fd_reader *const self);
-//
+unsigned char					fd_reader_is_opened(t_fd_reader *const self);
+
 //unsigned char					fd_reader_is_readable(t_fd_reader *const self);
 //
 //char							*fd_reader_read_line(t_fd_reader *const self);
@@ -79,8 +80,8 @@ void							fd_reader_dinit(t_fd_reader *const self);
 
 static const t_fd_reader_vtbl	g_fd_reader_vt = {
 	&fd_reader_dinit,
-	&del_fd_reader//,
-//	&fd_reader_is_opened,
+	&del_fd_reader,
+	&fd_reader_is_opened//,
 //	&fd_reader_is_readable,
 //	&fd_reader_read_line,
 //	&fd_reader_read_char,
