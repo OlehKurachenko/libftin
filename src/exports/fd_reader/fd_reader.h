@@ -51,6 +51,10 @@ t_fd_reader						*new_fd_reader(const int fd,
 
 void							del_fd_reader(t_fd_reader **const self_ptr);
 
+/*
+**	fd_reader initializer. Allocates memory, in case of failure buffer_size is
+**	being set to 0.
+*/
 void							fd_reader_init(t_fd_reader *const self,
 	const int fd, const size_t buffer_size);
 
