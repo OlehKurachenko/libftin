@@ -36,5 +36,12 @@ int main() {
 	printf("line 3 = %s\n", reader1.vt->read_line(&reader1));
 	fflush(stdout);
 
+	printf("int 1 = %lld\n", reader1.vt->read_llint(&reader1));
+	fflush(stdout);
+	printf("int 2 = %lld\n", reader1.vt->read_llint(&reader1));
+	fflush(stdout);
+	printf("int 3 = %lld\n", reader1.vt->read_llint(&reader1));
+	fflush(stdout);
+
 	reader1.vt->dinit(&reader1);
 }
