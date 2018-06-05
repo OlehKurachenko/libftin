@@ -43,5 +43,18 @@ int main() {
 	printf("int 3 = %lld\n", reader1.vt->read_llint(&reader1));
 	fflush(stdout);
 
+	const size_t arr_len;
+	char a[100];
+
+	reader1.vt->read_line_to_array(&reader1, a, arr_len);
+	printf("line 1 = %s\n", a);
+	fflush(stdout);
+	reader1.vt->read_line_to_array(&reader1, a, arr_len);
+	printf("line 2 = %s\n", a);
+	fflush(stdout);
+	reader1.vt->read_line_to_array(&reader1, a, arr_len);
+	printf("line 3 = %s\n", a);
+	fflush(stdout);
+
 	reader1.vt->dinit(&reader1);
 }

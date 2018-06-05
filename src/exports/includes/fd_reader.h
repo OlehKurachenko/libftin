@@ -37,6 +37,8 @@ struct							s_fd_reader_vtbl {
 	unsigned char				(*const is_opened)(t_fd_reader *const self);
 	unsigned char				(*const is_readable)(t_fd_reader *const self);
 	char						*(*const read_line)(t_fd_reader *const self);
+	void						(*const read_line_to_array)(
+		t_fd_reader *const self, char *const array, const size_t limit);
 	char						(*const read_char)(t_fd_reader *const self);
 	long long					(*const read_llint)(t_fd_reader
 		*const self);
@@ -69,6 +71,9 @@ unsigned char					fd_reader_is_readable(t_fd_reader *const self);
 
 char							*fd_reader_read_line(t_fd_reader *const self);
 
+void							fd_reader_read_line_to_array(
+	t_fd_reader *const self, char *const array, const size_t limit);
+
 char							fd_reader_read_char(t_fd_reader *const self);
 
 long long						fd_reader_read_llint(t_fd_reader *const self);
@@ -85,6 +90,7 @@ static const t_fd_reader_vtbl	g_fd_reader_vt = {
 	&fd_reader_is_opened,
 	&fd_reader_is_readable,
 	&fd_reader_read_line,
+	&fd_reader_read_line_to_array,
 	&fd_reader_read_char,
 	&fd_reader_read_llint,
 	&fd_reader_read_buffer
