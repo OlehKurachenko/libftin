@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fd_reader.h"
+#include "../../includes/fd_reader.h"
 
 void	del_fd_reader(t_fd_reader **const self_ptr)
 {
 	(*self_ptr)->vt->dinit(*self_ptr);
 	free(*self_ptr);
-	(self_ptr) = NULL;
+	*self_ptr = NULL;
 }
