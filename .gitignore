@@ -1,0 +1,4 @@
+imports/**
+.c3pm_clonedir/**
+cmake-build-debug/**
+.idea/**
