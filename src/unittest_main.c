@@ -20,6 +20,14 @@ int main() {
 
 	fd_reader_init(&reader1, fd, 100);
 	printf("fd=%d: is opened=%d\n", fd, reader1.vt->is_opened(&reader1));
+	printf("fd=%d: is readable=%d\n", fd, reader1.vt->is_readable(&reader1));
+
+	printf("line 1 = %s\n", reader1.vt->read_line(&reader1));
+	fflush(stdout);
+	printf("line 2 = %s\n", reader1.vt->read_line(&reader1));
+	fflush(stdout);
+	printf("line 3 = %s\n", reader1.vt->read_line(&reader1));
+	fflush(stdout);
 
 	reader1.vt->dinit(&reader1);
 }

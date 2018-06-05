@@ -17,6 +17,8 @@ CC = gcc -Wall -Wextra -Werror
 
 LC = ar rc
 
+LC_ADD = ar -q
+
 SRC_DIR = src
 
 OBJ_DIR = obj
@@ -25,7 +27,10 @@ SRC_N =	fd_reader/new_fd_reader.c \
 		fd_reader/fd_reader_init.c \
 		fd_reader/del_fd_reader.c \
 		fd_reader/fd_reader_dinit.c \
-		fd_reader/fd_reader_is_opened.c
+		fd_reader/fd_reader_is_opened.c \
+		fd_reader/fd_reader_is_readable.c \
+		fd_reader/fd_reader_read_buffer.c \
+		fd_reader/fd_reader_read_line.c
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_N:.c=.o))
 
@@ -44,25 +49,26 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 	mkdir -p $(OBJ_DIR)/fd_reader
 
-$(NAME): $(OBJ_DIR) $(OBJ)
-	$(LC) $(NAME) $(OBJ)
+$(NAME): $(LIBFT_PATH)/$(LIBFT_A) $(OBJ_DIR) $(OBJ)
+	cp $(LIBFT_PATH)/$(LIBFT_A) $(NAME)
+	$(LC_ADD) $(NAME) $(OBJ)
 
-clean:
+clean: libclean
 	rm -rf $(OBJ_DIR)
 
-fclean: clean
+fclean: libfclean clean
 	rm -f $(NAME)
 
 re: fclean all
 
-#$(LIBFT_PATH)/$(LIBFT_A):
-#	@make -C $(LIBFT_PATH)/ all
-#
-#libclean:
-#	@make -C $(LIBFT_PATH)/ clean
-#
-#libfclean:
-#	@make -C $(LIBFT_PATH)/ fclean
-#
-#libre:
-#	@make -C $(LIBFT_PATH)/ re
+$(LIBFT_PATH)/$(LIBFT_A):
+	@make -C $(LIBFT_PATH)/ all
+
+libclean:
+	@make -C $(LIBFT_PATH)/ clean
+
+libfclean:
+	@make -C $(LIBFT_PATH)/ fclean
+
+libre:
+	@make -C $(LIBFT_PATH)/ re
