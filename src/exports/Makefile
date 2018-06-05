@@ -30,7 +30,10 @@ SRC_N =	fd_reader/new_fd_reader.c \
 		fd_reader/fd_reader_is_opened.c \
 		fd_reader/fd_reader_is_readable.c \
 		fd_reader/fd_reader_read_buffer.c \
+		fd_reader/fd_reader_read_char.c \
 		fd_reader/fd_reader_read_line.c
+
+INCLUDES = includes/
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_N:.c=.o))
 

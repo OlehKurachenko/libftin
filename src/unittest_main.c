@@ -22,6 +22,13 @@ int main() {
 	printf("fd=%d: is opened=%d\n", fd, reader1.vt->is_opened(&reader1));
 	printf("fd=%d: is readable=%d\n", fd, reader1.vt->is_readable(&reader1));
 
+	printf("char 1 = %d\n", reader1.vt->read_char(&reader1));
+	fflush(stdout);
+	printf("char 2 = %d\n", reader1.vt->read_char(&reader1));
+	fflush(stdout);
+	printf("char 3 = %d\n", reader1.vt->read_char(&reader1));
+	fflush(stdout);
+
 	printf("line 1 = %s\n", reader1.vt->read_line(&reader1));
 	fflush(stdout);
 	printf("line 2 = %s\n", reader1.vt->read_line(&reader1));
