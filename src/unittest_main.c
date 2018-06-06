@@ -46,6 +46,11 @@ int main() {
 	const size_t arr_len;
 	char a[100];
 
+	printf("next two lines will be passed\n");
+	fflush(stdout);
+	reader1.vt->pass_line(&reader1);
+	reader1.vt->pass_line(&reader1);
+
 	reader1.vt->read_line_to_array(&reader1, a, arr_len);
 	printf("line 1 = %s\n", a);
 	fflush(stdout);

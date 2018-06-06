@@ -42,6 +42,7 @@ struct							s_fd_reader_vtbl {
 	char						(*const read_char)(t_fd_reader *const self);
 	long long					(*const read_llint)(t_fd_reader
 		*const self);
+	void						(*const pass_line)(t_fd_reader *const self);
 
 	void						(*const read_buffer)(t_fd_reader *const self);
 };
@@ -78,6 +79,8 @@ char							fd_reader_read_char(t_fd_reader *const self);
 
 long long						fd_reader_read_llint(t_fd_reader *const self);
 
+void							fd_reader_pass_line(t_fd_reader *const self);
+
 /*
 **	private:
 */
@@ -93,6 +96,7 @@ static const t_fd_reader_vtbl	g_fd_reader_vt = {
 	&fd_reader_read_line_to_array,
 	&fd_reader_read_char,
 	&fd_reader_read_llint,
+	&fd_reader_pass_line,
 	&fd_reader_read_buffer
 };
 

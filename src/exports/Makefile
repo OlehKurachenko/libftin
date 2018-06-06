@@ -33,7 +33,8 @@ SRC_N =	fd_reader/new_fd_reader.c \
 		fd_reader/fd_reader_read_char.c \
 		fd_reader/fd_reader_read_line.c \
 		fd_reader/fd_reader_read_llint.c \
-		fd_reader/fd_reader_read_line_to_array.c
+		fd_reader/fd_reader_read_line_to_array.c \
+		fd_reader/fd_reader_pass_line.c
 
 INCLUDES = includes/
 
