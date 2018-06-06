@@ -19,7 +19,7 @@ void	fd_reader_read_line_to_array(t_fd_reader *const self,
 
 	array_itr = 0;
 	while (self->vt->is_readable(self) && (self->buffer[self->buffer_i] != '\n')
-		&& array_itr < (limit - 1))
+		&& array_itr < limit)
 	{
 		array[array_itr] = self->buffer[self->buffer_i];
 		++array_itr;
@@ -29,6 +29,6 @@ void	fd_reader_read_line_to_array(t_fd_reader *const self,
 	}
 	if (self->vt->is_readable(self) && (self->buffer[self->buffer_i] == '\n'))
 		++(self->buffer_i);
-	if (limit)
+	if (limit && array_itr != limit)
 		array[array_itr] = 0;
 }
