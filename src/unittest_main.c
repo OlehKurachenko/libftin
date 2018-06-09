@@ -35,8 +35,11 @@ int main() {
 	fflush(stdout);
 	printf("char 3 = %d\n", reader1.vt->read_char(&reader1));
 	fflush(stdout);
+	reader1.vt->pass_line(&reader1);
 
 	printf("Enter line>");
+	fflush(stdout);
+	printf("lookuped char = %c\n", reader1.vt->lookup_char(&reader1));
 	fflush(stdout);
 	printf("line 1 = %s\n", reader1.vt->read_line(&reader1));
 	fflush(stdout);
