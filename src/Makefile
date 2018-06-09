@@ -10,3 +10,12 @@ unittest:
 	@ ./f
 	@ echo "${RESET_COLOR}\c"
 	rm f
+
+unittest_abstract_reader:
+	@ make -C exports/ re
+	gcc abstract_reader_unittest.c exports/libftin.a -o f
+	@ echo "${BOLD_YELL}Running unit test${RESET_COLOR}"
+	@ echo "${BOLD_CYAN}\c"
+	@ ./f
+	@ echo "${RESET_COLOR}\c"
+	rm f

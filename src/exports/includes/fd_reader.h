@@ -37,8 +37,6 @@ struct								s_fd_reader {
 };
 
 struct								s_fd_reader_vtbl {
-	t_abstract_reader_vtbl			super;
-
 	void							(*const dinit)(t_fd_reader *const self);
 	void							(*const del)(t_fd_reader **const self_ptr);
 	bool							(*const is_opened)(t_fd_reader *const self);
@@ -111,36 +109,12 @@ void								fd_reader_read_buffer(
 	t_fd_reader *const self);
 
 /*
-** static const t_abstract_reader_vtbl	g_fd_reader_super_vt = {
-**	(void (*const)(t_abstract_reader *const))&fd_reader_dinit,
-**	(void (*const)(t_abstract_reader **const))&del_fd_reader,
-**	(bool (*const)(t_abstract_reader *const self))&fd_reader_is_opened,
-**	(bool (*const)(t_abstract_reader *const self))&fd_reader_is_readable,
-**	(char *(*const)(t_abstract_reader *const self))&fd_reader_read_line,
-**	(void (*const)(t_abstract_reader *const self, char *const array,
-**		const size_t limit))&fd_reader_read_line_to_array,
-**	(char (*const)(t_abstract_reader *const self))&fd_reader_read_char,
-**	(long long (*const)(t_abstract_reader *const self))&fd_reader_read_llint,
-**	(void (*const)(t_abstract_reader *const self))&fd_reader_pass_line,
-**	(char (*const)(t_abstract_reader *const self))&fd_reader_lookup_char
-**};
+**	virtual table
+**
+**
 */
 
 static const t_fd_reader_vtbl		g_fd_reader_vt = {
-	{
-		(void (*const)(t_abstract_reader *const))&fd_reader_dinit,
-		(void (*const)(t_abstract_reader **const))&del_fd_reader,
-		(bool (*const)(t_abstract_reader *const self))&fd_reader_is_opened,
-		(bool (*const)(t_abstract_reader *const self))&fd_reader_is_readable,
-		(char *(*const)(t_abstract_reader *const self))&fd_reader_read_line,
-		(void (*const)(t_abstract_reader *const self, char *const array,
-			const size_t limit))&fd_reader_read_line_to_array,
-		(char (*const)(t_abstract_reader *const self))&fd_reader_read_char,
-		(long long (*const)(
-			t_abstract_reader *const self))&fd_reader_read_llint,
-		(void (*const)(t_abstract_reader *const self))&fd_reader_pass_line,
-		(char (*const)(t_abstract_reader *const self))&fd_reader_lookup_char
-	},
 	&fd_reader_dinit,
 	&del_fd_reader,
 	&fd_reader_is_opened,
@@ -151,38 +125,8 @@ static const t_fd_reader_vtbl		g_fd_reader_vt = {
 	&fd_reader_read_llint,
 	&fd_reader_pass_line,
 	&fd_reader_lookup_char,
+
 	&fd_reader_read_buffer
 };
-
-/*
-**	static const t_abstract_reader_vtbl	g_fd_reader_super_vt = {
-**	(void (*const)(t_abstract_reader *const))&fd_reader_dinit,
-**	(void (*const)(t_abstract_reader **const))&del_fd_reader,
-**	(bool (*const)(t_abstract_reader *const self))&fd_reader_is_opened,
-**	(bool (*const)(t_abstract_reader *const self))&fd_reader_is_readable,
-**	(char *(*const)(t_abstract_reader *const self))&fd_reader_read_line,
-**	(void (*const)(t_abstract_reader *const self, char *const array,
-**	const size_t limit))&fd_reader_read_line_to_array,
-**	(char (*const)(t_abstract_reader *const self))&fd_reader_read_char,
-**	(long long (*const)(t_abstract_reader *const self))&fd_reader_read_llint,
-**	(void (*const)(t_abstract_reader *const self))&fd_reader_pass_line,
-**	(char (*const)(t_abstract_reader *const self))&fd_reader_lookup_char
-**	};
-**
-**	static const t_fd_reader_vtbl		g_fd_reader_vt = {
-**			g_fd_reader_super_vt,
-**			&fd_reader_dinit,
-**			&del_fd_reader,
-**			&fd_reader_is_opened,
-**			&fd_reader_is_readable,
-**			&fd_reader_read_line,
-**			&fd_reader_read_line_to_array,
-**			&fd_reader_read_char,
-**			&fd_reader_read_llint,
-**			&fd_reader_pass_line,
-**			&fd_reader_lookup_char,
-**			&fd_reader_read_buffer
-**	};
-*/
 
 #endif
