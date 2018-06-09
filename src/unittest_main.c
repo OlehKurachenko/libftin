@@ -18,27 +18,46 @@ int main() {
 
 	const int fd = 0;
 
+	printf("Enter char>");
+	fflush(stdout);
+
 	fd_reader_init(&reader1, fd, 100);
 	printf("fd=%d: is opened=%d\n", fd, reader1.vt->is_opened(&reader1));
 	printf("fd=%d: is readable=%d\n", fd, reader1.vt->is_readable(&reader1));
 
 	printf("char 1 = %d\n", reader1.vt->read_char(&reader1));
 	fflush(stdout);
+	printf("Enter char>");
+	fflush(stdout);
 	printf("char 2 = %d\n", reader1.vt->read_char(&reader1));
+	fflush(stdout);
+	printf("Enter char>");
 	fflush(stdout);
 	printf("char 3 = %d\n", reader1.vt->read_char(&reader1));
 	fflush(stdout);
 
+	printf("Enter line>");
+	fflush(stdout);
 	printf("line 1 = %s\n", reader1.vt->read_line(&reader1));
 	fflush(stdout);
+	printf("Enter line>");
+	fflush(stdout);
 	printf("line 2 = %s\n", reader1.vt->read_line(&reader1));
+	fflush(stdout);
+	printf("Enter line>");
 	fflush(stdout);
 	printf("line 3 = %s\n", reader1.vt->read_line(&reader1));
 	fflush(stdout);
 
+	printf("Enter int>");
+	fflush(stdout);
 	printf("int 1 = %lld\n", reader1.vt->read_llint(&reader1));
 	fflush(stdout);
+	printf("Enter int>");
+	fflush(stdout);
 	printf("int 2 = %lld\n", reader1.vt->read_llint(&reader1));
+	fflush(stdout);
+	printf("Enter int>");
 	fflush(stdout);
 	printf("int 3 = %lld\n", reader1.vt->read_llint(&reader1));
 	fflush(stdout);
@@ -48,14 +67,25 @@ int main() {
 
 	printf("next two lines will be passed\n");
 	fflush(stdout);
+
+	printf("Enter line>");
+	fflush(stdout);
 	reader1.vt->pass_line(&reader1);
+	printf("Enter line>");
+	fflush(stdout);
 	reader1.vt->pass_line(&reader1);
 
+	printf("Enter line>");
+	fflush(stdout);
 	reader1.vt->read_line_to_array(&reader1, a, arr_len);
 	printf("line 1 = %s\n", a);
 	fflush(stdout);
+	printf("Enter line>");
+	fflush(stdout);
 	reader1.vt->read_line_to_array(&reader1, a, arr_len);
 	printf("line 2 = %s\n", a);
+	fflush(stdout);
+	printf("Enter line>");
 	fflush(stdout);
 	reader1.vt->read_line_to_array(&reader1, a, arr_len);
 	printf("line 3 = %s\n", a);
