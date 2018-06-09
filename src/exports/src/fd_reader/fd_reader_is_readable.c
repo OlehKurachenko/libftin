@@ -12,7 +12,7 @@
 
 #include "../../includes/fd_reader.h"
 
-unsigned char					fd_reader_is_readable(t_fd_reader *const self)
+bool	fd_reader_is_readable(t_fd_reader *const self)
 {
 	if (self->buffer_i >= self->buffer_actual_size)
 		self->vt->read_buffer(self);

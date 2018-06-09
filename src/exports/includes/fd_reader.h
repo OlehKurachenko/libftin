@@ -34,8 +34,8 @@ struct							s_fd_reader {
 struct							s_fd_reader_vtbl {
 	void						(*const dinit)(t_fd_reader *const self);
 	void						(*const del)(t_fd_reader **const self_ptr);
-	unsigned char				(*const is_opened)(t_fd_reader *const self);
-	unsigned char				(*const is_readable)(t_fd_reader *const self);
+	bool						(*const is_opened)(t_fd_reader *const self);
+	bool						(*const is_readable)(t_fd_reader *const self);
 	char						*(*const read_line)(t_fd_reader *const self);
 	void						(*const read_line_to_array)(
 		t_fd_reader *const self, char *const array, const size_t limit);
@@ -66,9 +66,9 @@ void							fd_reader_init(t_fd_reader *const self,
 
 void							fd_reader_dinit(t_fd_reader *const self);
 
-unsigned char					fd_reader_is_opened(t_fd_reader *const self);
+bool 							fd_reader_is_opened(t_fd_reader *const self);
 
-unsigned char					fd_reader_is_readable(t_fd_reader *const self);
+bool							fd_reader_is_readable(t_fd_reader *const self);
 
 char							*fd_reader_read_line(t_fd_reader *const self);
 

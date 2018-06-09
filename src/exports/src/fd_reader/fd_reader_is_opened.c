@@ -12,9 +12,9 @@
 
 #include "../../includes/fd_reader.h"
 
-unsigned char	fd_reader_is_opened(t_fd_reader *const self)
+bool	fd_reader_is_opened(t_fd_reader *const self)
 {
 	if (read(self->fd, NULL, 0) == -1)
-		return (0);
-	return (1);
+		return (false);
+	return (true);
 }
