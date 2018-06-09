@@ -13,6 +13,7 @@
 #ifndef LIBFTIN_LIBFTIN_H
 # define LIBFTIN_LIBFTIN_H
 
+# include "includes/abstract_reader.h"
 # include "includes/fd_reader.h"
 
 #endif

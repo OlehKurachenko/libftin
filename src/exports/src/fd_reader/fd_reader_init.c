@@ -15,6 +15,7 @@
 void	fd_reader_init(t_fd_reader *const self, const int fd,
 	const size_t buffer_size)
 {
+	self->super.vt = (t_abstract_reader_vtbl *)&g_fd_reader_vt;
 	self->vt = &g_fd_reader_vt;
 	self->buffer_size = buffer_size;
 	self->buffer = (char *)malloc(sizeof(char) * self->buffer_size);
