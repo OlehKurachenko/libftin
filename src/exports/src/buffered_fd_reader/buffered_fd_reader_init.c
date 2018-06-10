@@ -10,17 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "buffered_fd_reader.h"
+#include "../../includes/buffered_fd_reader.h"
 
 static void	init_super_virtual_tables(t_buffered_fd_reader *const self)
 {
-	self->super->vt = (t_abstract_reader_vtbl *)&g_buffered_fd_reader;
+	self->super.vt = (t_abstract_reader_vtbl *)&g_buffered_fd_reader_vt;
 }
 
 void		buffered_fd_reader_init(t_buffered_fd_reader *const self,
 	const int fd, const size_t buffer_size)
 {
-	self->vt = &g_buffered_fd_reader;
+	self->vt = &g_buffered_fd_reader_vt;
 	init_super_virtual_tables(self);
 	self->exception = false;
 	if (!buffer_size)

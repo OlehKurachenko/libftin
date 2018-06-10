@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   del_buffered_fd_reader.c                           :+:      :+:    :+:   */
+/*   buffered_fd_reader_is_opened.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okurache <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/10 03:05:57 by okurache          #+#    #+#             */
-/*   Updated: 2018/06/10 03:05:57 by okurache         ###   ########.fr       */
+/*   Created: 2018/06/10 05:03:50 by okurache          #+#    #+#             */
+/*   Updated: 2018/06/10 05:03:50 by okurache         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/buffered_fd_reader.h"
 
-void	del_buffered_fd_reader(t_buffered_fd_reader **const self_ptr)
+bool	buffered_fd_reader_is_opened(t_buffered_fd_reader *const self)
 {
-	(*self_ptr)->vt->dinit(*self_ptr);
-	free(*self_ptr);
-	*self_ptr = NULL;
+	self->exception = 0;
+	if (read(self->fd, NULL, 0) == -1)
+		return (false);
+	return (true);
 }

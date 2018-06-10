@@ -23,19 +23,27 @@ SRC_DIR = src
 
 OBJ_DIR = obj
 
-SRC_N =	fd_reader/new_fd_reader.c \
-		fd_reader/fd_reader_init.c \
-		fd_reader/del_fd_reader.c \
-		fd_reader/fd_reader_dinit.c \
-		fd_reader/fd_reader_is_opened.c \
-		fd_reader/fd_reader_is_readable.c \
-		fd_reader/fd_reader_read_buffer.c \
-		fd_reader/fd_reader_read_char.c \
-		fd_reader/fd_reader_read_line.c \
-		fd_reader/fd_reader_read_llint.c \
-		fd_reader/fd_reader_read_line_to_array.c \
-		fd_reader/fd_reader_pass_line.c \
-		fd_reader/fd_reader_lookup_char.c
+SRC_N =	buffered_fd_reader/buffered_fd_reader_init.c \
+		buffered_fd_reader/buffered_fd_reader_dinit.c \
+		buffered_fd_reader/new_buffered_fd_reader.c \
+		buffered_fd_reader/del_buffered_fd_reader.c \
+		buffered_fd_reader/buffered_fd_reader_is_opened.c \
+		buffered_fd_reader/buffered_fd_reader_is_readable.c \
+		buffered_fd_reader/buffered_fd_reader_read_buffer.c
+
+#		fd_reader/new_fd_reader.c \
+#		fd_reader/fd_reader_init.c \
+#		fd_reader/del_fd_reader.c \
+#		fd_reader/fd_reader_dinit.c \
+#		fd_reader/fd_reader_is_opened.c \
+#		fd_reader/fd_reader_is_readable.c \
+#		fd_reader/fd_reader_read_buffer.c \
+#		fd_reader/fd_reader_read_char.c \
+#		fd_reader/fd_reader_read_line.c \
+#		fd_reader/fd_reader_read_llint.c \
+#		fd_reader/fd_reader_read_line_to_array.c \
+#		fd_reader/fd_reader_pass_line.c \
+#		fd_reader/fd_reader_lookup_char.c
 
 INCLUDES = includes/
 
@@ -54,7 +62,7 @@ $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
-	mkdir -p $(OBJ_DIR)/fd_reader
+	mkdir -p $(OBJ_DIR)/buffered_fd_reader
 
 $(NAME): $(LIBFT_PATH)/$(LIBFT_A) $(OBJ_DIR) $(OBJ)
 	cp $(LIBFT_PATH)/$(LIBFT_A) $(NAME)
@@ -67,6 +75,13 @@ fclean: libfclean clean
 	rm -f $(NAME)
 
 re: fclean all
+
+shortre: shortfclean all
+
+shortfclean:
+	rm -rf $(OBJ_DIR)
+	rm -f $(NAME)
+
 
 $(LIBFT_PATH)/$(LIBFT_A):
 	@make -C $(LIBFT_PATH)/ all
