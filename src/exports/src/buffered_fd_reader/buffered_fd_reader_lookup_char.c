@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buffered_fd_reader_is_opened.c                     :+:      :+:    :+:   */
+/*   buffered_fd_reader_lookup_char.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okurache <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/10 05:03:50 by okurache          #+#    #+#             */
-/*   Updated: 2018/06/10 05:03:50 by okurache         ###   ########.fr       */
+/*   Created: 2018/06/10 06:21:43 by okurache          #+#    #+#             */
+/*   Updated: 2018/06/10 06:21:43 by okurache         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/buffered_fd_reader.h"
 
-bool	buffered_fd_reader_is_opened(t_buffered_fd_reader *const self)
+char	buffered_fd_reader_lookup_char(t_buffered_fd_reader *const self)
 {
 	self->exception = false;
-	if (read(self->fd, NULL, 0) == -1)
-		return (false);
-	return (true);
+	if (!self->vt->has_char(self))
+	{
+		self->exception = true;
+		return (0);
+	}
+	return (self->buffer[self->buffer_i]);
 }

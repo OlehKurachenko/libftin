@@ -13,14 +13,14 @@
 #include "../../includes/buffered_fd_reader.h"
 
 t_buffered_fd_reader	*new_buffered_fd_reader(const int fd,
-	const size_t buffer_size)
+	const size_t buffer_size, const bool pass_spaces_in_has)
 {
 	t_buffered_fd_reader *this_ptr;
 
 	this_ptr = (t_buffered_fd_reader *)malloc(sizeof(t_buffered_fd_reader));
 	if (!this_ptr)
 		return (NULL);
-	buffered_fd_reader_init(this_ptr, fd, buffer_size);
+	buffered_fd_reader_init(this_ptr, fd, buffer_size, pass_spaces_in_has);
 	if (this_ptr->exception == true)
 	{
 		free(this_ptr);

@@ -80,8 +80,6 @@ struct									s_abstract_reader_vtbl {
 	long long unsigned	(*const read_lluint)(t_abstract_reader *const self);
 
 	long double			(*const read_ldouble)(t_abstract_reader *const self);
-
-	void				(*const pass_line)(t_abstract_reader *const self);
 };
 
 /*

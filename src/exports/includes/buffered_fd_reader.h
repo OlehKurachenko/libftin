@@ -16,8 +16,7 @@
 **  Buffered reader which reads from opened (using "open") stream by its
 **	fd using "read"
 **
-**	The buffer of buffer_size+1 is being allocated dynamically. Buffer size
-**	have to be at least 1.
+**	Buffer size have to be at least 1.
 **
 **	Extra size is used to lookup two chars when checking "has_llint"
 **
@@ -52,6 +51,7 @@ struct										s_buffered_fd_reader {
 	char 							*buffer;
 	size_t							buffer_actual_size;
 	size_t							buffer_i;
+	bool							pass_spaces_in_has;
 };
 
 /*
@@ -69,6 +69,18 @@ struct										s_buffered_fd_reader_vtbl {
 
 	bool	(*const is_readable)(t_buffered_fd_reader *const self);
 
+	bool	(*const has_line)(t_buffered_fd_reader *const self);
+
+	bool	(*const has_char)(t_buffered_fd_reader *const self);
+
+	bool	(*const has_str)(t_buffered_fd_reader *const self);
+
+	//	new
+
+	char	(*const lookup_char)(t_buffered_fd_reader *const self);
+
+	void	(*const pass_spaces)(t_buffered_fd_reader *const self);
+
 	// private
 
 	void	(*const read_buffer)(t_buffered_fd_reader *const self);
@@ -81,11 +93,11 @@ struct										s_buffered_fd_reader_vtbl {
 */
 
 t_buffered_fd_reader						*new_buffered_fd_reader(
-	const int fd, const size_t buffer_size);
+	const int fd, const size_t buffer_size, const bool pass_spaces_in_has);
 
 void										buffered_fd_reader_init(
 	t_buffered_fd_reader *const self,
-	const int fd, const size_t buffer_size);
+	const int fd, const size_t buffer_size, const bool pass_spaces_in_has);
 
 void										del_buffered_fd_reader(
 	t_buffered_fd_reader **const self_ptr);
@@ -99,7 +111,16 @@ bool										buffered_fd_reader_is_opened(
 bool										buffered_fd_reader_is_readable(
 	t_buffered_fd_reader *const self);
 
+bool										buffered_fd_reader_has_str(
+	t_buffered_fd_reader *const self);
+
 // TODO public methods prototypes goes here
+
+char										buffered_fd_reader_lookup_char(
+	t_buffered_fd_reader *const self);
+
+void										buffered_fd_reader_pass_spaces(
+	t_buffered_fd_reader *const self);
 
 /*
 **  private:
@@ -121,6 +142,12 @@ static const t_buffered_fd_reader_vtbl g_buffered_fd_reader_vt = {
 		&del_buffered_fd_reader,
 		&buffered_fd_reader_is_opened,
 		&buffered_fd_reader_is_readable,
+		&buffered_fd_reader_is_readable,
+		&buffered_fd_reader_is_readable,
+		&buffered_fd_reader_has_str,
+
+		&buffered_fd_reader_lookup_char,
+		&buffered_fd_reader_pass_spaces,
 		// TODO member function addresses goes here
 		&buffered_fd_reader_read_buffer
 };

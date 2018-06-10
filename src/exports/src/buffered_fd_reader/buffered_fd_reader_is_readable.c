@@ -14,7 +14,7 @@
 
 bool	buffered_fd_reader_is_readable(t_buffered_fd_reader *const self)
 {
-	self->exception = 0;
+	self->exception = false;
 	if (self->buffer_i >= self->buffer_actual_size)
 		self->vt->read_buffer(self);
 	return (self->buffer_i < self->buffer_actual_size);
