@@ -43,7 +43,24 @@ int main() {
 		return print_error_at(5);
 	// test 6
 	if (!ft_strequ(cin->vt->read_line(cin), "i love you)"))
-		return print_error_at(5);
+		return print_error_at(6);
+
+	const int arr_n = 20;
+	char arr[arr_n];
+	// test 7
+	cin->vt->read_line_to_array(cin, arr, arr_n); // not safe, of course
+	if (!ft_strequ(arr, "kek, lol!"))
+		return print_error_at(7);
+	// test 8
+	cin->vt->read_str_to_array(cin, arr, arr_n); // not safe, of course
+	if (!ft_strequ(arr, "sdfs"))
+		return print_error_at(8);
+	// test 9
+	if (!ft_strequ(cin->vt->read_str(cin), "sdfsdf"))
+		return print_error_at(9);
+	// test 10
+	if (!ft_strequ(cin->vt->read_str(cin), "fdsfd"))
+		return print_error_at(10);
 
 	cin->vt->del(&cin);
 	printf("\033[1;32mAll ok!\033[0;0m\n");
