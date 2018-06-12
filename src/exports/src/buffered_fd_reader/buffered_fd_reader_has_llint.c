@@ -40,7 +40,7 @@ bool		buffered_fd_reader_has_llint(t_buffered_fd_reader *const self)
 	{
 		pull_buffer(self);
 		if (self->buffer_i + 1 < self->buffer_actual_size)
-			return ft_isdigit(self->buffer[self->buffer_i + 1]);
+			return (ft_isdigit(self->buffer[self->buffer_i + 1]));
 	}
 	return (false);
 }

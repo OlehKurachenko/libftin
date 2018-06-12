@@ -48,7 +48,7 @@ struct										s_buffered_fd_reader {
 
 	int								fd;
 	size_t							buffer_size;
-	char 							*buffer;
+	char							*buffer;
 	size_t							buffer_actual_size;
 	size_t							buffer_i;
 	bool							pass_spaces_in_has;
@@ -83,11 +83,25 @@ struct										s_buffered_fd_reader_vtbl {
 
 	char	(*const read_char)(t_buffered_fd_reader *const self);
 
+	char	*(*const read_line)(t_buffered_fd_reader *const self);
+
+	void	(*const read_line_to_array)(t_buffered_fd_reader *const self,
+			char *const array, const size_t limit);
+
+	char	*(*const read_str)(t_buffered_fd_reader *const self);
+
 	//	new
 
 	char	(*const lookup_char)(t_buffered_fd_reader *const self);
 
 	void	(*const pass_spaces)(t_buffered_fd_reader *const self);
+
+	char	*(*const read_line_delim)(t_buffered_fd_reader *const self,
+		bool (*const is_delim)(const char));
+
+	void	(*const read_line_delim_to_array)(t_buffered_fd_reader *const self,
+			char *const array, const size_t limit,
+			bool (*const is_delim)(const char));
 
 	// private
 
@@ -131,6 +145,16 @@ bool										buffered_fd_reader_has_lluint(
 char										buffered_fd_reader_read_char(
 	t_buffered_fd_reader *const self);
 
+char										*buffered_fd_reader_read_line(
+	t_buffered_fd_reader *const self);
+
+void
+buffered_fd_reader_read_line_to_array(t_buffered_fd_reader *const self,
+	char *const array, const size_t limit);
+
+char										*buffered_fd_reader_read_str(
+	t_buffered_fd_reader *const self);
+
 // TODO public methods prototypes goes here
 
 char										buffered_fd_reader_lookup_char(
@@ -138,6 +162,14 @@ char										buffered_fd_reader_lookup_char(
 
 void										buffered_fd_reader_pass_spaces(
 	t_buffered_fd_reader *const self);
+
+char										*buffered_fd_reader_read_line_delim(
+	t_buffered_fd_reader *const self, bool (*const is_delim)(const char));
+
+void
+buffered_fd_reader_read_line_delim_to_array(
+	t_buffered_fd_reader *const self, char *const array, const size_t limit,
+	bool (*const is_delim)(const char));
 
 /*
 **  private:
@@ -154,7 +186,7 @@ void										buffered_fd_reader_read_buffer(
 **  Mark of EO: TODO check
 */
 
-static const t_buffered_fd_reader_vtbl g_buffered_fd_reader_vt = {
+static const t_buffered_fd_reader_vtbl		g_buffered_fd_reader_vt = {
 		&buffered_fd_reader_dinit,
 		&del_buffered_fd_reader,
 		&buffered_fd_reader_is_opened,
@@ -166,9 +198,14 @@ static const t_buffered_fd_reader_vtbl g_buffered_fd_reader_vt = {
 		&buffered_fd_reader_has_lluint,
 		&buffered_fd_reader_has_llint,
 		&buffered_fd_reader_read_char,
+		&buffered_fd_reader_read_line,
+		&buffered_fd_reader_read_line_to_array,
+		&buffered_fd_reader_read_str,
 
 		&buffered_fd_reader_lookup_char,
 		&buffered_fd_reader_pass_spaces,
+		&buffered_fd_reader_read_line_delim,
+		&buffered_fd_reader_read_line_delim_to_array,
 		// TODO member function addresses goes here
 		&buffered_fd_reader_read_buffer
 };

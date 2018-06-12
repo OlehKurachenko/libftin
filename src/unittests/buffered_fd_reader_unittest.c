@@ -13,6 +13,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <fcntl.h>
+#include <string.h>
 #include "../exports/includes/buffered_fd_reader.h"
 
 static int print_error_at(const unsigned at)
@@ -34,6 +35,15 @@ int main() {
 	// test 3
 	if (cin->vt->read_char(cin) != 'h' || cin->vt->read_char(cin) != 'i')
 		return print_error_at(3);
+	// test 4
+	if (!cin->vt->has_line(cin))
+		return print_error_at(4);
+	// test 5
+	if (!ft_strequ(cin->vt->read_line(cin), ", frankie"))
+		return print_error_at(5);
+	// test 6
+	if (!ft_strequ(cin->vt->read_line(cin), "i love you)"))
+		return print_error_at(5);
 
 	cin->vt->del(&cin);
 	printf("\033[1;32mAll ok!\033[0;0m\n");
