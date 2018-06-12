@@ -75,6 +75,14 @@ struct										s_buffered_fd_reader_vtbl {
 
 	bool	(*const has_str)(t_buffered_fd_reader *const self);
 
+	bool	(*const has_llint)(t_buffered_fd_reader *const self);
+
+	bool	(*const has_lluint)(t_buffered_fd_reader *const self);
+
+	bool	(*const has_ldouble)(t_buffered_fd_reader *const self);
+
+	char	(*const read_char)(t_buffered_fd_reader *const self);
+
 	//	new
 
 	char	(*const lookup_char)(t_buffered_fd_reader *const self);
@@ -114,6 +122,15 @@ bool										buffered_fd_reader_is_readable(
 bool										buffered_fd_reader_has_str(
 	t_buffered_fd_reader *const self);
 
+bool										buffered_fd_reader_has_llint(
+	t_buffered_fd_reader *const self);
+
+bool										buffered_fd_reader_has_lluint(
+	t_buffered_fd_reader *const self);
+
+char										buffered_fd_reader_read_char(
+	t_buffered_fd_reader *const self);
+
 // TODO public methods prototypes goes here
 
 char										buffered_fd_reader_lookup_char(
@@ -145,6 +162,10 @@ static const t_buffered_fd_reader_vtbl g_buffered_fd_reader_vt = {
 		&buffered_fd_reader_is_readable,
 		&buffered_fd_reader_is_readable,
 		&buffered_fd_reader_has_str,
+		&buffered_fd_reader_has_llint,
+		&buffered_fd_reader_has_lluint,
+		&buffered_fd_reader_has_llint,
+		&buffered_fd_reader_read_char,
 
 		&buffered_fd_reader_lookup_char,
 		&buffered_fd_reader_pass_spaces,

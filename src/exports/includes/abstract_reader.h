@@ -63,6 +63,8 @@ struct									s_abstract_reader_vtbl {
 
 	bool				(*const has_ldouble)(t_abstract_reader *const self);
 
+	char				(*const read_char)(t_abstract_reader *const self);
+
 	char				*(*const read_line)(t_abstract_reader *const self);
 
 	void				(*const read_line_to_array)(
@@ -72,8 +74,6 @@ struct									s_abstract_reader_vtbl {
 
 	void				(*const read_str_to_array)(
 		t_abstract_reader *const self, char *const array, const size_t limit);
-
-	char				(*const read_char)(t_abstract_reader *const self);
 
 	long long			(*const read_llint)(t_abstract_reader *const self);
 

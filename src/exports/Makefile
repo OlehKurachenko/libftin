@@ -30,6 +30,9 @@ SRC_N =	buffered_fd_reader/buffered_fd_reader_init.c \
 		buffered_fd_reader/buffered_fd_reader_is_opened.c \
 		buffered_fd_reader/buffered_fd_reader_is_readable.c \
 		buffered_fd_reader/buffered_fd_reader_has_str.c \
+		buffered_fd_reader/buffered_fd_reader_has_llint.c \
+		buffered_fd_reader/buffered_fd_reader_has_lluint.c \
+		buffered_fd_reader/buffered_fd_reader_read_char.c \
 		buffered_fd_reader/buffered_fd_reader_lookup_char.c \
 		buffered_fd_reader/buffered_fd_reader_pass_spaces.c \
 		buffered_fd_reader/buffered_fd_reader_read_buffer.c
