@@ -18,8 +18,6 @@
 **
 **	Buffer size have to be at least 1.
 **
-**	Extra size is used to lookup two chars when checking "has_llint"
-**
 **	Written in accordance to 42_c_oop standard
 **	https://github.com/OlehKurachenko/42_c_oop-standard
 */
@@ -61,37 +59,41 @@ struct										s_buffered_fd_reader {
 */
 
 struct										s_buffered_fd_reader_vtbl {
-	void	(*const dinit)(t_buffered_fd_reader *const self);
+	void				(*const dinit)(t_buffered_fd_reader *const self);
 
-	void	(*const del)(t_buffered_fd_reader **const self_ptr);
+	void				(*const del)(t_buffered_fd_reader **const self_ptr);
 
-	bool	(*const is_opened)(t_buffered_fd_reader *const self);
+	bool				(*const is_opened)(t_buffered_fd_reader *const self);
 
-	bool	(*const is_readable)(t_buffered_fd_reader *const self);
+	bool				(*const is_readable)(t_buffered_fd_reader *const self);
 
-	bool	(*const has_line)(t_buffered_fd_reader *const self);
+	bool				(*const has_line)(t_buffered_fd_reader *const self);
 
-	bool	(*const has_char)(t_buffered_fd_reader *const self);
+	bool				(*const has_char)(t_buffered_fd_reader *const self);
 
-	bool	(*const has_str)(t_buffered_fd_reader *const self);
+	bool				(*const has_str)(t_buffered_fd_reader *const self);
 
-	bool	(*const has_llint)(t_buffered_fd_reader *const self);
+	bool				(*const has_llint)(t_buffered_fd_reader *const self);
 
-	bool	(*const has_lluint)(t_buffered_fd_reader *const self);
+	bool				(*const has_lluint)(t_buffered_fd_reader *const self);
 
-	bool	(*const has_ldouble)(t_buffered_fd_reader *const self);
+	bool				(*const has_ldouble)(t_buffered_fd_reader *const self);
 
-	char	(*const read_char)(t_buffered_fd_reader *const self);
+	char				(*const read_char)(t_buffered_fd_reader *const self);
 
-	char	*(*const read_line)(t_buffered_fd_reader *const self);
+	char				*(*const read_line)(t_buffered_fd_reader *const self);
 
-	void	(*const read_line_to_array)(t_buffered_fd_reader *const self,
+	void				(*const read_line_to_array)(t_buffered_fd_reader *const self,
 			char *const array, const size_t limit);
 
-	char	*(*const read_str)(t_buffered_fd_reader *const self);
+	char				*(*const read_str)(t_buffered_fd_reader *const self);
 
-	void	(*const read_str_to_array)(t_buffered_fd_reader *const self,
+	void				(*const read_str_to_array)(t_buffered_fd_reader *const self,
 			char *const array, const size_t limit);
+
+	long long			(*const read_llint)(t_buffered_fd_reader *const self);
+
+	long long unsigned	(*const read_lluint)(t_buffered_fd_reader *const self);
 
 	//	new
 
@@ -162,6 +164,12 @@ void
 buffered_fd_reader_read_str_to_array(t_buffered_fd_reader *const self,
 	char *const array, const size_t limit);
 
+long long									buffered_fd_reader_read_llint(
+	t_buffered_fd_reader *const self);
+
+long long unsigned							buffered_fd_reader_read_lluint(
+	t_buffered_fd_reader *const self);
+
 // TODO public methods prototypes goes here
 
 char										buffered_fd_reader_lookup_char(
@@ -209,6 +217,8 @@ static const t_buffered_fd_reader_vtbl		g_buffered_fd_reader_vt = {
 		&buffered_fd_reader_read_line_to_array,
 		&buffered_fd_reader_read_str,
 		&buffered_fd_reader_read_str_to_array,
+		&buffered_fd_reader_read_llint,
+		&buffered_fd_reader_read_lluint,
 
 		&buffered_fd_reader_lookup_char,
 		&buffered_fd_reader_pass_spaces,

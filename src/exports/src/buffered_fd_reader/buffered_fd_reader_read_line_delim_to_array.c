@@ -18,7 +18,8 @@ void	buffered_fd_reader_read_line_delim_to_array(
 {
 	size_t array_itr;
 
-	self->exception = false;
+	if ((self->exception = !self->vt->is_readable(self)))
+		return ;
 	array_itr = 0;
 	while (self->vt->is_readable(self) && !is_delim(self->vt->lookup_char(self))
 			&& array_itr < limit)

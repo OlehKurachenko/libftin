@@ -37,6 +37,8 @@ SRC_N =	buffered_fd_reader/buffered_fd_reader_init.c \
 		buffered_fd_reader/buffered_fd_reader_read_line_to_array.c \
 		buffered_fd_reader/buffered_fd_reader_read_str.c \
 		buffered_fd_reader/buffered_fd_reader_read_str_to_array.c \
+		buffered_fd_reader/buffered_fd_reader_read_llint.c \
+		buffered_fd_reader/buffered_fd_reader_read_lluint.c \
 		buffered_fd_reader/buffered_fd_reader_lookup_char.c \
 		buffered_fd_reader/buffered_fd_reader_pass_spaces.c \
 		buffered_fd_reader/buffered_fd_reader_read_line_delim.c \

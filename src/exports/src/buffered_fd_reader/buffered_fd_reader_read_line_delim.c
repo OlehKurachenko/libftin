@@ -41,13 +41,15 @@ static void		reshape_new_line(char **const new_line_ptr,
 	*new_line_ptr = temp_new_line;
 }
 
-char	*buffered_fd_reader_read_line_delim(
-		t_buffered_fd_reader *const self, bool (*const is_delim)(const char)) {
+char			*buffered_fd_reader_read_line_delim(
+		t_buffered_fd_reader *const self, bool (*const is_delim)(const char))
+{
 	char	*new_line;
 	size_t	new_line_i;
 	size_t	new_line_size;
 
-	self->exception = false;
+	if ((self->exception = !self->vt->is_readable(self)))
+		return (NULL);
 	new_line_i = 0;
 	new_line_size = self->buffer_size;
 	new_line = (char *)malloc(sizeof(char) * new_line_size);

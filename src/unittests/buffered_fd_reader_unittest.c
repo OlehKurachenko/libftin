@@ -24,7 +24,7 @@ static int print_error_at(const unsigned at)
 
 int main() {
 	const int fd = open("data/1.txt", O_RDONLY);
-	t_buffered_fd_reader *cin = new_buffered_fd_reader(fd, 128, true);
+	t_buffered_fd_reader *cin = new_buffered_fd_reader(fd, 3, true);
 
 	// test 1
 	if (!cin->vt->is_opened(cin))
@@ -61,6 +61,36 @@ int main() {
 	// test 10
 	if (!ft_strequ(cin->vt->read_str(cin), "fdsfd"))
 		return print_error_at(10);
+	// test 11
+	if (!cin->vt->has_llint(cin))
+		return print_error_at(11);
+	// test 12
+	//printf("%lld", cin->vt->read_llint(cin));
+	if (cin->vt->read_llint(cin) != -3453453)
+		return print_error_at(12);
+	// test 13
+	if (cin->vt->has_llint(cin))
+		return print_error_at(13);
+	// test 14
+	//=printf("%lld", cin->vt->read_llint(cin));
+	if (cin->vt->read_llint(cin) != 0)
+		return print_error_at(14);
+	// test 15
+	if (!cin->exception)
+		return print_error_at(15);
+	// test 16
+	cin->vt->read_char(cin);
+	if (cin->exception || cin->vt->read_llint(cin) != 34)
+		return print_error_at(16);
+	// test 17
+	if (cin->vt->read_lluint(cin) != 123456789)
+		return print_error_at(17);
+	// test 18
+	if (cin->vt->read_lluint(cin) != 0)
+		return print_error_at(18);
+	// test 19
+	if (!cin->exception)
+		return print_error_at(19);
 
 	cin->vt->del(&cin);
 	printf("\033[1;32mAll ok!\033[0;0m\n");
