@@ -33,32 +33,30 @@
 
 # include "abstract_reader.h"
 
-typedef struct s_buffered_fd_reader			t_buffered_fd_reader;
+typedef struct s_buffered_fd_reader	t_buffered_fd_reader;
 
-typedef struct s_buffered_fd_reader_vtbl	t_buffered_fd_reader_vtbl;
+struct								s_buffered_fd_reader {
+	t_abstract_reader						super;
 
-struct										s_buffered_fd_reader {
-	t_abstract_reader				super;
+	const struct s_buffered_fd_reader_vtbl	*vt;
 
-	const t_buffered_fd_reader_vtbl	*vt;
+	bool									exception;
 
-	bool							exception;
-
-	int								fd;
-	size_t							buffer_size;
-	char							*buffer;
-	size_t							buffer_actual_size;
-	size_t							buffer_i;
-	bool							pass_spaces_in_has;
+	int										fd;
+	size_t									buffer_size;
+	char									*buffer;
+	size_t									buffer_actual_size;
+	size_t									buffer_i;
+	bool									pass_spaces_in_has;
 };
 
 /*
 **  First member function pointers have to match member
 **  functions list from base class
-**  Mark of EO: TODO check
+**  Mark of EO: ok, okurache 13 june 2018
 */
 
-struct										s_buffered_fd_reader_vtbl {
+typedef struct						s_buffered_fd_reader_vtbl {
 	void				(*const dinit)(t_buffered_fd_reader *const self);
 
 	void				(*const del)(t_buffered_fd_reader **const self_ptr);
@@ -83,114 +81,116 @@ struct										s_buffered_fd_reader_vtbl {
 
 	char				*(*const read_line)(t_buffered_fd_reader *const self);
 
-	void				(*const read_line_to_array)(t_buffered_fd_reader *const self,
-			char *const array, const size_t limit);
+	void				(*const read_line_to_array)(
+		t_buffered_fd_reader *const self,
+		char *const array, const size_t limit);
 
 	char				*(*const read_str)(t_buffered_fd_reader *const self);
 
-	void				(*const read_str_to_array)(t_buffered_fd_reader *const self,
-			char *const array, const size_t limit);
+	void				(*const read_str_to_array)(
+		t_buffered_fd_reader *const self,
+		char *const array, const size_t limit);
 
 	long long			(*const read_llint)(t_buffered_fd_reader *const self);
 
 	long long unsigned	(*const read_lluint)(t_buffered_fd_reader *const self);
 
-	//	new
+	long double			(*const read_ldouble)(t_buffered_fd_reader *const self);
 
-	char	(*const lookup_char)(t_buffered_fd_reader *const self);
+	char				(*const lookup_char)(t_buffered_fd_reader *const self);
 
-	void	(*const pass_spaces)(t_buffered_fd_reader *const self);
+	void				(*const pass_spaces)(t_buffered_fd_reader *const self);
 
-	char	*(*const read_line_delim)(t_buffered_fd_reader *const self,
+	char				*(*const read_line_delim)(
+		t_buffered_fd_reader *const self, bool (*const is_delim)(const char));
+
+	void				(*const read_line_delim_to_array)(
+		t_buffered_fd_reader *const self, char *const array, const size_t limit,
 		bool (*const is_delim)(const char));
 
-	void	(*const read_line_delim_to_array)(t_buffered_fd_reader *const self,
-			char *const array, const size_t limit,
-			bool (*const is_delim)(const char));
+	void				(*const pass_line)(t_buffered_fd_reader *const self);
 
-	// private
-
-	void	(*const read_buffer)(t_buffered_fd_reader *const self);
-
-	//  TODO here types of member function pointers goes
-};
+	void				(*const read_buffer)(t_buffered_fd_reader *const self);
+}									t_buffered_fd_reader_vtbl;
 
 /*
 **  public:
 */
 
-t_buffered_fd_reader						*new_buffered_fd_reader(
+t_buffered_fd_reader				*new_buffered_fd_reader(
 	const int fd, const size_t buffer_size, const bool pass_spaces_in_has);
 
-void										buffered_fd_reader_init(
+void								buffered_fd_reader_init(
 	t_buffered_fd_reader *const self,
 	const int fd, const size_t buffer_size, const bool pass_spaces_in_has);
 
-void										del_buffered_fd_reader(
+void								del_buffered_fd_reader(
 	t_buffered_fd_reader **const self_ptr);
 
-void										buffered_fd_reader_dinit(
+void								buffered_fd_reader_dinit(
 	t_buffered_fd_reader *const self);
 
-bool										buffered_fd_reader_is_opened(
+bool								buffered_fd_reader_is_opened(
 	t_buffered_fd_reader *const self);
 
-bool										buffered_fd_reader_is_readable(
+bool								buffered_fd_reader_is_readable(
 	t_buffered_fd_reader *const self);
 
-bool										buffered_fd_reader_has_str(
+bool								buffered_fd_reader_has_str(
 	t_buffered_fd_reader *const self);
 
-bool										buffered_fd_reader_has_llint(
+bool								buffered_fd_reader_has_llint(
 	t_buffered_fd_reader *const self);
 
-bool										buffered_fd_reader_has_lluint(
+bool								buffered_fd_reader_has_lluint(
 	t_buffered_fd_reader *const self);
 
-char										buffered_fd_reader_read_char(
+char								buffered_fd_reader_read_char(
 	t_buffered_fd_reader *const self);
 
-char										*buffered_fd_reader_read_line(
+char								*buffered_fd_reader_read_line(
 	t_buffered_fd_reader *const self);
 
-void
-buffered_fd_reader_read_line_to_array(t_buffered_fd_reader *const self,
+void								buffered_fd_reader_read_line_to_array(
+	t_buffered_fd_reader *const self,
 	char *const array, const size_t limit);
 
-char										*buffered_fd_reader_read_str(
+char								*buffered_fd_reader_read_str(
 	t_buffered_fd_reader *const self);
 
-void
-buffered_fd_reader_read_str_to_array(t_buffered_fd_reader *const self,
-	char *const array, const size_t limit);
+void								buffered_fd_reader_read_str_to_array(
+	t_buffered_fd_reader *const self, char *const array, const size_t limit);
 
-long long									buffered_fd_reader_read_llint(
+long long							buffered_fd_reader_read_llint(
 	t_buffered_fd_reader *const self);
 
-long long unsigned							buffered_fd_reader_read_lluint(
+long long unsigned					buffered_fd_reader_read_lluint(
 	t_buffered_fd_reader *const self);
 
-// TODO public methods prototypes goes here
-
-char										buffered_fd_reader_lookup_char(
+long double							buffered_fd_reader_read_ldouble(
 	t_buffered_fd_reader *const self);
 
-void										buffered_fd_reader_pass_spaces(
+char								buffered_fd_reader_lookup_char(
 	t_buffered_fd_reader *const self);
 
-char										*buffered_fd_reader_read_line_delim(
+void								buffered_fd_reader_pass_spaces(
+	t_buffered_fd_reader *const self);
+
+char								*buffered_fd_reader_read_line_delim(
 	t_buffered_fd_reader *const self, bool (*const is_delim)(const char));
 
-void
-buffered_fd_reader_read_line_delim_to_array(
+void								buffered_fd_reader_read_line_delim_to_array(
 	t_buffered_fd_reader *const self, char *const array, const size_t limit,
 	bool (*const is_delim)(const char));
+
+void								buffered_fd_reader_pass_line(
+	t_buffered_fd_reader *const self);
 
 /*
 **  private:
 */
 
-void										buffered_fd_reader_read_buffer(
+void								buffered_fd_reader_read_buffer(
 	t_buffered_fd_reader *const self);
 
 /*
@@ -198,34 +198,35 @@ void										buffered_fd_reader_read_buffer(
 **
 **  First member function pointers have to match member
 **  functions list from base class
-**  Mark of EO: TODO check
+**  Mark of EO: ckecked, okurache june 13 2018
 */
 
-static const t_buffered_fd_reader_vtbl		g_buffered_fd_reader_vt = {
-		&buffered_fd_reader_dinit,
-		&del_buffered_fd_reader,
-		&buffered_fd_reader_is_opened,
-		&buffered_fd_reader_is_readable,
-		&buffered_fd_reader_is_readable,
-		&buffered_fd_reader_is_readable,
-		&buffered_fd_reader_has_str,
-		&buffered_fd_reader_has_llint,
-		&buffered_fd_reader_has_lluint,
-		&buffered_fd_reader_has_llint,
-		&buffered_fd_reader_read_char,
-		&buffered_fd_reader_read_line,
-		&buffered_fd_reader_read_line_to_array,
-		&buffered_fd_reader_read_str,
-		&buffered_fd_reader_read_str_to_array,
-		&buffered_fd_reader_read_llint,
-		&buffered_fd_reader_read_lluint,
-
-		&buffered_fd_reader_lookup_char,
-		&buffered_fd_reader_pass_spaces,
-		&buffered_fd_reader_read_line_delim,
-		&buffered_fd_reader_read_line_delim_to_array,
-		// TODO member function addresses goes here
-		&buffered_fd_reader_read_buffer
+static
+const t_buffered_fd_reader_vtbl		g_buffered_fd_reader_vt = {
+	&buffered_fd_reader_dinit,
+	&del_buffered_fd_reader,
+	&buffered_fd_reader_is_opened,
+	&buffered_fd_reader_is_readable,
+	&buffered_fd_reader_is_readable,
+	&buffered_fd_reader_is_readable,
+	&buffered_fd_reader_has_str,
+	&buffered_fd_reader_has_llint,
+	&buffered_fd_reader_has_lluint,
+	&buffered_fd_reader_has_llint,
+	&buffered_fd_reader_read_char,
+	&buffered_fd_reader_read_line,
+	&buffered_fd_reader_read_line_to_array,
+	&buffered_fd_reader_read_str,
+	&buffered_fd_reader_read_str_to_array,
+	&buffered_fd_reader_read_llint,
+	&buffered_fd_reader_read_lluint,
+	&buffered_fd_reader_read_ldouble,
+	&buffered_fd_reader_lookup_char,
+	&buffered_fd_reader_pass_spaces,
+	&buffered_fd_reader_read_line_delim,
+	&buffered_fd_reader_read_line_delim_to_array,
+	&buffered_fd_reader_pass_line,
+	&buffered_fd_reader_read_buffer
 };
 
 #endif

@@ -17,7 +17,7 @@ static bool		is_delim(const char character)
 	return (ft_iswhitespace(character));
 }
 
-char	*buffered_fd_reader_read_str(t_buffered_fd_reader *const self)
+char			*buffered_fd_reader_read_str(t_buffered_fd_reader *const self)
 {
 	char	*temp_ptr;
 

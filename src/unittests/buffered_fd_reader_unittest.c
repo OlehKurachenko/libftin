@@ -91,6 +91,18 @@ int main() {
 	// test 19
 	if (!cin->exception)
 		return print_error_at(19);
+	// test 20
+	cin->vt->pass_line(cin);
+	//printf("%Lf\n", cin->vt->read_ldouble(cin));
+	if ((double)cin->vt->read_ldouble(cin) != 11.1)
+		return print_error_at(20);
+	// test 21
+	//printf("%Lf\n", cin->vt->read_ldouble(cin));
+	if (cin->vt->read_ldouble(cin) != -343.1L)
+		return print_error_at(21);
+	// test 22
+	if (cin->vt->read_ldouble(cin) != 4234234.2423423423L)
+		return print_error_at(22);
 
 	cin->vt->del(&cin);
 	printf("\033[1;32mAll ok!\033[0;0m\n");

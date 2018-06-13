@@ -17,8 +17,8 @@ static bool	is_delim(const char character)
 	return (character == '\n');
 }
 
-void	buffered_fd_reader_read_line_to_array(t_buffered_fd_reader *const self,
-	char *const array, const size_t limit)
+void		buffered_fd_reader_read_line_to_array(
+	t_buffered_fd_reader *const self, char *const array, const size_t limit)
 {
 	buffered_fd_reader_read_line_delim_to_array(self, array, limit, &is_delim);
 	if (!self->exception && self->vt->is_readable(self) &&

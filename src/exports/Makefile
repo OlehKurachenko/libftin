@@ -39,25 +39,13 @@ SRC_N =	buffered_fd_reader/buffered_fd_reader_init.c \
 		buffered_fd_reader/buffered_fd_reader_read_str_to_array.c \
 		buffered_fd_reader/buffered_fd_reader_read_llint.c \
 		buffered_fd_reader/buffered_fd_reader_read_lluint.c \
+		buffered_fd_reader/buffered_fd_reader_read_ldouble.c \
 		buffered_fd_reader/buffered_fd_reader_lookup_char.c \
 		buffered_fd_reader/buffered_fd_reader_pass_spaces.c \
 		buffered_fd_reader/buffered_fd_reader_read_line_delim.c \
 		buffered_fd_reader/buffered_fd_reader_read_line_delim_to_array.c \
+		buffered_fd_reader/buffered_fd_reader_pass_line.c \
 		buffered_fd_reader/buffered_fd_reader_read_buffer.c
-
-#		fd_reader/new_fd_reader.c \
-#		fd_reader/fd_reader_init.c \
-#		fd_reader/del_fd_reader.c \
-#		fd_reader/fd_reader_dinit.c \
-#		fd_reader/fd_reader_is_opened.c \
-#		fd_reader/fd_reader_is_readable.c \
-#		fd_reader/fd_reader_read_buffer.c \
-#		fd_reader/fd_reader_read_char.c \
-#		fd_reader/fd_reader_read_line.c \
-#		fd_reader/fd_reader_read_llint.c \
-#		fd_reader/fd_reader_read_line_to_array.c \
-#		fd_reader/fd_reader_pass_line.c \
-#		fd_reader/fd_reader_lookup_char.c
 
 INCLUDES = includes/
 
