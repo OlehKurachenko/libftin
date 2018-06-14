@@ -14,6 +14,6 @@
 # define LIBFTIN_LIBFTIN_H
 
 # include "includes/abstract_reader.h"
-# include "includes/fd_reader.h"
+# include "includes/buffered_fd_reader.h"
 
 #endif
