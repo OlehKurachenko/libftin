@@ -21,6 +21,8 @@ long long	buffered_fd_reader_read_llint(t_buffered_fd_reader *const self)
 	if ((self->exception = !self->vt->is_readable(self)))
 		return (0);
 	is_positive = true;
+	if (self->pass_spaces_to_read)
+		self->vt->pass_spaces(self);
 	if (self->vt->lookup_char(self) == '+')
 		self->vt->read_char(self);
 	else if (self->vt->lookup_char(self) == '-')

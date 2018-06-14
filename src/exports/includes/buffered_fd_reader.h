@@ -48,6 +48,7 @@ struct								s_buffered_fd_reader {
 	size_t									buffer_actual_size;
 	size_t									buffer_i;
 	bool									pass_spaces_in_has;
+	bool									pass_spaces_to_read;
 };
 
 /*

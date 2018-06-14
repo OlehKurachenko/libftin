@@ -19,7 +19,8 @@ long long unsigned	buffered_fd_reader_read_lluint(
 	unsigned long long	prev_result;
 	bool				is_positive;
 
-	self->vt->pass_spaces(self);
+	if (self->pass_spaces_to_read)
+		self->vt->pass_spaces(self);
 	self->exception = false;
 	if ((!self->vt->is_readable(self)
 		|| !ft_isdigit(self->vt->lookup_char(self)))

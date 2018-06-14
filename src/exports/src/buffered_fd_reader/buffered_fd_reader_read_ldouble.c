@@ -19,7 +19,8 @@ long double		buffered_fd_reader_read_ldouble(
 	long double	multiplier;
 	bool		is_positive;
 
-	self->vt->pass_spaces(self);
+	if (self->pass_spaces_to_read)
+		self->vt->pass_spaces(self);
 	if ((self->exception = !self->vt->is_readable(self)))
 		return (0);
 	is_positive = true;
@@ -27,14 +28,14 @@ long double		buffered_fd_reader_read_ldouble(
 		self->vt->read_char(self);
 	else if (self->vt->lookup_char(self) == '-')
 		is_positive = (self->vt->read_char(self) && false);
-	self->vt->pass_spaces(self);
+	if (self->pass_spaces_to_read)
+		self->vt->pass_spaces(self);
 	result = 0;
 	while (self->vt->has_char(self) && ft_isdigit(self->vt->lookup_char(self)))
 		result = 10 * result + (self->vt->read_char(self) - '0');
 	if (!(self->vt->has_char(self) && self->vt->lookup_char(self) == '.'))
 		return (result);
-	self->vt->read_char(self);
-	multiplier = 1;
+	multiplier = 1 + 0 * (self->vt->read_char(self));
 	while ((multiplier *= 0.1) && self->vt->has_char(self)
 			&& ft_isdigit(self->vt->lookup_char(self)))
 		result += multiplier * (self->vt->read_char(self) - '0');

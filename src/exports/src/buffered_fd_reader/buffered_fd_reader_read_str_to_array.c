@@ -20,7 +20,8 @@ static bool		is_delim(const char character)
 void			buffered_fd_reader_read_str_to_array(
 	t_buffered_fd_reader *const self, char *const array, const size_t limit)
 {
-	self->vt->pass_spaces(self);
+	if (self->pass_spaces_to_read)
+		self->vt->pass_spaces(self);
 	buffered_fd_reader_read_line_delim_to_array(self, array, limit, &is_delim);
 	if (!self->exception && self->vt->is_readable(self) &&
 			self->vt->lookup_char(self) == '\n')

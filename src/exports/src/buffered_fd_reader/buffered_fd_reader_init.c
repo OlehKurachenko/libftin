@@ -39,4 +39,5 @@ void		buffered_fd_reader_init(t_buffered_fd_reader *const self,
 	self->pass_spaces_in_has = pass_spaces_in_has;
 	self->buffer_actual_size = 0;
 	self->buffer_i = 0;
+	self->pass_spaces_to_read = true;
 }
